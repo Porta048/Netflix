@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const API_KEY = '55d58666';
@@ -36,10 +37,11 @@ export default function Gallery({ title, query }) {
     return (
       <div className="gallery-section">
         <h3 className="gallery-title">{title}</h3>
-        <div className="text-center py-4">
-          <div className="spinner-border" role="status">
+        <div className="text-center py-5">
+          <div className="spinner-border text-light mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
             <span className="visually-hidden">Caricamento...</span>
           </div>
+          <div className="text-light">Caricamento {title}...</div>
         </div>
       </div>
     );
@@ -49,9 +51,19 @@ export default function Gallery({ title, query }) {
     return (
       <div className="gallery-section">
         <h3 className="gallery-title">{title}</h3>
-        <div className="alert">
-          <i className="bi bi-exclamation-triangle me-2"></i>
-          {error}
+        <div className="alert alert-danger d-flex align-items-center justify-content-center py-4">
+          <i className="bi bi-exclamation-triangle me-3 fs-4"></i>
+          <div>
+            <strong>Errore nel caricamento:</strong>
+            <div className="mt-1">{error}</div>
+            <button 
+              className="btn btn-outline-light btn-sm mt-2"
+              onClick={() => window.location.reload()}
+            >
+              <i className="bi bi-arrow-clockwise me-1"></i>
+              Riprova
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -62,8 +74,9 @@ export default function Gallery({ title, query }) {
       <h3 className="gallery-title">{title}</h3>
       <div className="movie-row">
         {movies.map(movie => (
-          <div 
-            className="movie-card" 
+          <Link 
+            to={`/movie-details/${movie.imdbID}`}
+            className="movie-card text-decoration-none" 
             key={movie.imdbID}
             tabIndex="0"
             role="button"
@@ -79,7 +92,7 @@ export default function Gallery({ title, query }) {
               }}
             />
             <div className="movie-title">{movie.Title}</div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

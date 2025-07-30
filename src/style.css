@@ -336,6 +336,16 @@ footer {
   footer {
     padding: 2rem 2% 1rem;
   }
+  
+  /* Search Bar responsive */
+  .search-container {
+    width: 200px !important;
+  }
+  
+  .search-results {
+    width: 250px !important;
+    right: 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -350,6 +360,16 @@ footer {
   .navbar-nav {
     display: none;
   }
+  
+  /* Search Bar mobile */
+  .search-container {
+    width: 150px !important;
+  }
+  
+  .search-results {
+    width: 200px !important;
+    right: 0;
+  }
 }
 
 /* Smooth scrolling */
@@ -363,6 +383,45 @@ html {
 .nav-link:focus {
   outline: 2px solid #e50914;
   outline-offset: 2px;
+}
+
+/* Search Bar Styles */
+.search-container {
+  z-index: 1001;
+}
+
+.search-input:focus {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  border-color: #e50914 !important;
+  box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25) !important;
+  color: #fff !important;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-results {
+  z-index: 1002;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.search-results-list {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: #333 !important;
+}
+
+.search-result-item:last-child {
+  border-bottom: none !important;
 }
 
 .btn-netflix-genres {

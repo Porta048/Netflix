@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar.jsx";
 import logo from "../../assets/logo.png";
 
 export default function Navbar() {
@@ -13,14 +15,16 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><a className="nav-link active fw-bold" href="#">Home</a></li>
-            <li className="nav-item"><a className="nav-link fw-bold" href="#">TV Shows</a></li>
+            <li className="nav-item"><Link className="nav-link active fw-bold" to="/">Home</Link></li>
+            <li className="nav-item"><Link className="nav-link fw-bold" to="/tv-shows">TV Shows</Link></li>
             <li className="nav-item"><a className="nav-link fw-bold" href="#">Movies</a></li>
             <li className="nav-item"><a className="nav-link fw-bold" href="#">Recently Added</a></li>
             <li className="nav-item"><a className="nav-link fw-bold" href="#">My List</a></li>
           </ul>
           <div className="d-flex align-items-center">
-            <i className="bi bi-search icons"></i>
+            <div className="me-3" style={{ width: '300px' }}>
+              <SearchBar />
+            </div>
             <div id="kids" className="fw-bold">KIDS</div>
             <i className="bi bi-bell icons"></i>
             <i className="bi bi-person-circle icons"></i>
