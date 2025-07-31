@@ -97,7 +97,7 @@ export default function SearchBar({ onSearchResults }) {
   };
 
   return (
-    <div className="search-container position-relative">
+    <div className="search-container">
       <form onSubmit={handleSearchSubmit} className="d-flex align-items-center">
         <div className="position-relative flex-grow-1">
           <input
@@ -108,35 +108,10 @@ export default function SearchBar({ onSearchResults }) {
             onChange={handleSearchChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.75)',
-              border: '1px solid #333',
-              color: '#fff',
-              paddingLeft: '2.5rem',
-              borderRadius: '20px',
-              fontSize: '14px'
-            }}
           />
-          <i 
-            className="bi bi-search position-absolute" 
-            style={{
-              left: '12px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: '#666',
-              zIndex: 1
-            }}
-          />
+          <i className="bi bi-search search-icon" />
           {isSearching && (
-            <div 
-              className="position-absolute" 
-              style={{
-                right: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 1
-              }}
-            >
+            <div className="search-spinner">
               <div className="spinner-border spinner-border-sm text-light" role="status">
                 <span className="visually-hidden">Ricerca...</span>
               </div>
@@ -147,11 +122,11 @@ export default function SearchBar({ onSearchResults }) {
 
       {/* Risultati della ricerca */}
       {showResults && (
-        <div className="search-results position-absolute w-100 mt-2">
+        <div className="search-results">
           <div className="card bg-dark border-secondary">
             <div className="card-body p-0">
               {error ? (
-                <div className="p-3 text-center text-light">
+                <div className="search-error">
                   <i className="bi bi-exclamation-triangle me-2"></i>
                   {error}
                 </div>
@@ -160,36 +135,27 @@ export default function SearchBar({ onSearchResults }) {
                   {searchResults.map((movie) => (
                     <div
                       key={movie.imdbID}
-                      className="search-result-item d-flex align-items-center p-3 border-bottom border-secondary"
+                      className="search-result-item"
                       onClick={() => handleResultClick(movie)}
-                      style={{ cursor: 'pointer' }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = '#333'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                     >
                       <img
                         src={movie.Poster !== 'N/A' ? movie.Poster : '/assets/logo.png'}
                         alt={movie.Title}
-                        className="me-3"
-                        style={{
-                          width: '40px',
-                          height: '60px',
-                          objectFit: 'cover',
-                          borderRadius: '4px'
-                        }}
+                        className="search-result-poster"
                         onError={(e) => {
                           e.target.src = '/assets/logo.png';
                         }}
                       />
-                      <div className="flex-grow-1">
-                        <div className="text-light fw-bold">{movie.Title}</div>
-                        <div className="text-muted small">{movie.Year}</div>
+                      <div className="search-result-info">
+                        <div className="search-result-title">{movie.Title}</div>
+                        <div className="search-result-year">{movie.Year}</div>
                       </div>
-                      <i className="bi bi-chevron-right text-muted"></i>
+                      <i className="bi bi-chevron-right search-result-arrow"></i>
                     </div>
                   ))}
                 </div>
               ) : searchTerm.length >= 3 && !isSearching ? (
-                <div className="p-3 text-center text-light">
+                <div className="search-no-results">
                   <i className="bi bi-search me-2"></i>
                   Nessun risultato trovato
                 </div>

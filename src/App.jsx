@@ -12,25 +12,36 @@ const Settings = lazy(() => import('./pages/Settings.jsx'));
 export default function App() {
   return (
     <Router>
-      <Navbar />
-      <div className="container-fluid px-4">
-        <nav className="mb-4">
-          <Link to="/" className="btn btn-outline-light btn-sm me-2">Home</Link>
-          <Link to="/tv-shows" className="btn btn-outline-light btn-sm me-2">TV Shows</Link>
-          <Link to="/account" className="btn btn-outline-light btn-sm me-2">Account</Link>
-          <Link to="/settings" className="btn btn-outline-light btn-sm">Settings</Link>
-        </nav>
-        <Suspense fallback={<div className="text-center py-5"><div className="spinner-border text-light" role="status"><span className="visually-hidden">Loading...</span></div></div>}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tv-shows" element={<TVShows />} />
-            <Route path="/movie-details/:movieId" element={<MovieDetails />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </Suspense>
+      <div className="app-wrapper">
+        <Navbar />
+        <main className="main-content">
+          <div className="container-fluid">
+            <nav className="breadcrumb-nav">
+              <Link to="/" className="btn btn-outline-light btn-sm me-2">Home</Link>
+              <Link to="/tv-shows" className="btn btn-outline-light btn-sm me-2">TV Shows</Link>
+              <Link to="/account" className="btn btn-outline-light btn-sm me-2">Account</Link>
+              <Link to="/settings" className="btn btn-outline-light btn-sm">Settings</Link>
+            </nav>
+            
+            <Suspense fallback={
+              <div className="loading-container">
+                <div className="spinner-border text-light" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            }>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tv-shows" element={<TVShows />} />
+                <Route path="/movie-details/:movieId" element={<MovieDetails />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
+            </Suspense>
+          </div>
+        </main>
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 }
